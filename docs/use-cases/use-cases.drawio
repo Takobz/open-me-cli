@@ -1,0 +1,129 @@
+<mxfile host="65bd71144e">
+    <diagram id="3Yy4MeTNTpzMwPfkCHjn" name="OAuth Provider Configuration">
+        <mxGraphModel dx="856" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="15" style="edgeStyle=none;html=1;" edge="1" parent="1" source="3" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Unidentified User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="220" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="6" target="17">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Identified User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="450" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+                    <mxGeometry x="160" y="80" width="390" height="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="12" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="12" target="20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&amp;lt;&amp;lt;includes&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="23">
+                    <mxGeometry x="-0.3667" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="Create OAuth authentication link" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="130" width="110" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="OAuth Provider" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="660" y="300" width="40" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="1" source="17" target="20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="&amp;lt;&amp;lt;includes&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="25">
+                    <mxGeometry x="-0.125" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="Query OAuth Provider Configuration" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="295" y="440" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="Get OAuth Provider Configuration" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="295" y="280" width="120" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="-2Bk1ioW_23xUsUQzydT" name="Authorization URL Generationn">
+        <mxGraphModel dx="856" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-1" value="System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+                    <mxGeometry x="230" y="70" width="370" height="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-16" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-2" target="sYxeuYRa29EKOdVYzIEC-15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-2" value="Identified User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="400" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-13" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-4" target="sYxeuYRa29EKOdVYzIEC-12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-14" value="&amp;lt;&amp;lt;includes&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sYxeuYRa29EKOdVYzIEC-13">
+                    <mxGeometry x="-0.2819" y="1" relative="1" as="geometry">
+                        <mxPoint x="-15" y="19" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-4" value="Generate OAuth Authorization Link" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="220" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-8" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-7" target="sYxeuYRa29EKOdVYzIEC-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-9" value="&amp;lt;&amp;lt;optional&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sYxeuYRa29EKOdVYzIEC-8">
+                    <mxGeometry x="-0.0333" y="2" relative="1" as="geometry">
+                        <mxPoint x="6" y="3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-11" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-7" target="sYxeuYRa29EKOdVYzIEC-10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-7" value="Get URL from Provider" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="440" y="350" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-10" value="OAuth Provider" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="360" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-12" value="Get OAuth Provider Configuration" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="260" y="350" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-18" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-15" target="sYxeuYRa29EKOdVYzIEC-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-19" value="&amp;lt;&amp;lt;includes&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sYxeuYRa29EKOdVYzIEC-18">
+                    <mxGeometry y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-15" value="Get OAuth Provider Authorization Link" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="100" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-20" value="OAuth Provider Auth Server" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="480" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-21" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sYxeuYRa29EKOdVYzIEC-2" target="sYxeuYRa29EKOdVYzIEC-20">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="sYxeuYRa29EKOdVYzIEC-23" value="User Authorization" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sYxeuYRa29EKOdVYzIEC-21">
+                    <mxGeometry x="-0.123" y="1" relative="1" as="geometry">
+                        <mxPoint x="68" y="6" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
