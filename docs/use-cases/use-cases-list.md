@@ -14,7 +14,12 @@ Use case daigram: [Draw.io diagram](./use-cases.drawio). You will need [Draw.io]
 ### OAuth Authorization Link Generation
 
 - Get authorization link.
+- Handle Callback from provider
+- Store token and refresh token
 
-### Token Acquisition
+### Token Usage + Refresh
 
-### Token Retrieval & Refresh
+- Get Provider User Data
+- Get User Token
+- Use Stored Token
+- Use Refresh Token
