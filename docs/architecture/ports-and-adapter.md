@@ -12,3 +12,25 @@ Will have the ports and adaptors pattern pic here and and...
 
 In the folder structure, I try to use what we would term as screaming architecture.
 This means my folder structure should map as closely as possible to architecture I am using.
+
+The folder structure:  
+
+```md
+root
+ | --> adapter
+        | --> in
+               | --> REST API
+               | --> CLI 
+        | --> out
+               | --> Data Layer Integration
+ | --> domain
+        | --> OpenME.Core.Domain
+        | --> OpenME.Core.Domain.Tests
+ | --> applicaton
+        | --> OpenME.Core.Application
+        | --> OpenME.Core.Applicatio.Tests
+```
+
+## What Each Directory Means
+
+To add here...

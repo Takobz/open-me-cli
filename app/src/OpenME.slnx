@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/application/">
+    <Project Path="application/OpenME.Core.Applicatio.Tests/OpenME.Core.Applicatio.Tests.csproj" />
+    <Project Path="application/OpenME.Core.Application/OpenME.Core.Application.csproj" />
+  </Folder>
+  <Folder Name="/domain/">
+    <Project Path="domain/OpenME.Core.Domain.Tests/OpenME.Core.Domain.Tests.csproj" />
+    <Project Path="domain/OpenME.Core.Domain/OpenME.Core.Domain.csproj" />
+  </Folder>
+</Solution>
