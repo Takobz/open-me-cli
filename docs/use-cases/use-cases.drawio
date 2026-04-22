@@ -1,19 +1,19 @@
 <mxfile host="65bd71144e">
     <diagram id="3Yy4MeTNTpzMwPfkCHjn" name="OAuth Provider Configuration">
-        <mxGraphModel dx="1009" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1133" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="15" style="edgeStyle=none;html=1;" parent="1" source="3" target="12" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="17" edge="1">
+                <mxCell id="29" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="27">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="3" value="Unidentified User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
                     <mxGeometry x="40" y="220" width="30" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="18" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="6" target="17" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="12">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="Identified User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
@@ -34,7 +34,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="12" value="Create OAuth authentication link" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="300" y="130" width="110" height="70" as="geometry"/>
+                    <mxGeometry x="300" y="210" width="110" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="14" value="OAuth Provider" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
                     <mxGeometry x="660" y="300" width="40" height="70" as="geometry"/>
@@ -48,10 +48,13 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="17" value="Query OAuth Provider Configuration" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="295" y="440" width="120" height="80" as="geometry"/>
+                    <mxGeometry x="295" y="520" width="120" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="20" value="Get OAuth Provider Configuration" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="295" y="280" width="120" height="80" as="geometry"/>
+                    <mxGeometry x="295" y="370" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="Create User" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="110" width="110" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

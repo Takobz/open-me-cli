@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/adapters/" />
+  <Folder Name="/adapters/out/" />
+  <Folder Name="/adapters/out/data/">
+    <Project Path="adapters/out/data/OpenME.Data/OpenME.Data.csproj" />
+  </Folder>
   <Folder Name="/application/">
     <Project Path="application/OpenME.Core.Applicatio.Tests/OpenME.Core.Applicatio.Tests.csproj" />
     <Project Path="application/OpenME.Core.Application/OpenME.Core.Application.csproj" />
