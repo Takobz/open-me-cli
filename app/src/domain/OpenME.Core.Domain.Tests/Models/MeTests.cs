@@ -17,7 +17,8 @@ namespace OpenME.Core.Domain.Tests.Models
         {
             var exception = Assert.Throws<DomainValidationException>(
                 () => Me.CreateMe(
-                    inputEmail
+                    inputEmail,
+                    ""
                 )
             );
 
@@ -37,7 +38,7 @@ namespace OpenME.Core.Domain.Tests.Models
             string inputEmail
         )
         {
-            var result = Me.CreateMe(inputEmail);
+            var result = Me.CreateMe(inputEmail, "");
             Assert.Equal(inputEmail, result.Email);
             Assert.NotEqual(Guid.Empty, result.Id);
             Assert.Empty(result.OAuthProviders);
