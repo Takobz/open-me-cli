@@ -1,4 +1,5 @@
-using System.Text.RegularExpressions;
+using OpenME.Core.Domain.Constants;
+using OpenME.Core.Domain.Exceptions;
 using OpenME.Core.Domain.Extensions;
 
 namespace OpenME.Core.Domain.Models
@@ -28,7 +29,11 @@ namespace OpenME.Core.Domain.Models
         {
             if (email == string.Empty || !email.IsEmailCorrectFormat())
             {
-                //TODO throw domain validation exception
+                throw new DomainValidationException(
+                    DomainValidationMessages.OnUserCreateInCorrectEmail(
+                        email
+                    )
+                );
             }
 
             return new Me(
@@ -36,6 +41,6 @@ namespace OpenME.Core.Domain.Models
                 email,
                 []
             );
-        }        
+        }
     } 
 }
