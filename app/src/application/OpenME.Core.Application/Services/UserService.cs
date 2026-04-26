@@ -24,6 +24,7 @@ namespace OpenME.Core.Application.Services
                 command.DisplayName
             );
 
+            //TODO: update the port interface to use the result pattern so we don't accidentally null refs
             var createdUser = await _createUserPort.CreateUser(
                 new CreateUserDataCommand(
                     user.Id,
