@@ -23,12 +23,13 @@ namespace OpenME.Core.Application.Tests.Services
         }
 
         [Fact]
-        public async Task UserService_Should_Have_Unsuccessful_Result_When_We_Fail_To_Create_User(
-        )
+        public async Task UserService_Should_Throw_When_UserPort_Fails_To_Create_User()
         {
+            var traceId = Guid.NewGuid();
             var command = new CreateUserCommand(
                 TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName
+                TestInputData.TestDisplayName,
+                Guid.NewGuid()
             );
 
             _mockCreateUserPort.Setup(_ => _.CreateUser(
@@ -36,18 +37,98 @@ namespace OpenME.Core.Application.Tests.Services
                     cmd.DisplayName == TestInputData.TestDisplayName &&
                     cmd.Email == TestInputData.TestEmailAddress
                 )
-            )).ReturnsAsync(new CreateUserDataResult(
-                Guid.Empty,
-                string.Empty,
-                string.Empty
+            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
+                Data: null,
+                IsSuccess: false
             ));
 
-            var result = await _sut.CreateUser(command);
+            var exception = await Assert.ThrowsAsync<ApplicationErrorException>(
+                () => _sut.CreateUser(new CreateUserCommand(
+                    TestInputData.TestEmailAddress,
+                    TestInputData.TestDisplayName,
+                    traceId
+                ))
+            );
+
+            Assert.Equal(
+                ApplicationErrorExceptionMessages.UserCreateError(
+                    traceId
+                ),
+                exception.ErrorMessage
+            );
+        }
+
+        [Theory]
+        [InlineData(TestInputData.EmptyGuidString, TestInputData.TestEmailAddress, TestInputData.TestDisplayName)]
+        [InlineData(TestInputData.JustAGuid, "", TestInputData.TestDisplayName)]
+        [InlineData(TestInputData.JustAGuid, TestInputData.TestEmailAddress, "")]
+        public async Task UserService_Should_Return_None_Success_Result_When_UserPort_Create_User_With_Empty_Fields(
+            string dataResultId,
+            string dataResultEmail,
+            string dataResultDisplayName
+        )
+        {
+            var traceId = Guid.NewGuid();
+            var command = new CreateUserCommand(
+                TestInputData.TestEmailAddress,
+                TestInputData.TestDisplayName,
+                traceId
+            );
+
+            _mockCreateUserPort.Setup(_ => _.CreateUser(
+                It.Is<CreateUserDataCommand>(cmd =>
+                    cmd.DisplayName == TestInputData.TestDisplayName &&
+                    cmd.Email == TestInputData.TestEmailAddress
+                )
+            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
+                Data: new CreateUserDataResult(
+                    Guid.Parse(dataResultId),
+                    dataResultEmail,
+                    dataResultDisplayName
+                ),
+                IsSuccess: true
+            ));
+
+            var result = await _sut.CreateUser(new CreateUserCommand(
+                TestInputData.TestEmailAddress,
+                TestInputData.TestDisplayName,
+                traceId
+            ));
 
             Assert.False(result.IsSuccess);
-            Assert.Equal(result.Id, Guid.Empty);
-            Assert.Equal(result.Email, string.Empty);
-            Assert.Equal(result.DisplayName, string.Empty);
+        }
+
+        [Fact]
+        public async Task UserService_Should_Return_Success_Result_When_UserPort_Creates_User()
+        {
+            var traceId = Guid.NewGuid();
+            var command = new CreateUserCommand(
+                TestInputData.TestEmailAddress,
+                TestInputData.TestDisplayName,
+                traceId
+            );
+
+            _mockCreateUserPort.Setup(_ => _.CreateUser(
+                It.Is<CreateUserDataCommand>(cmd =>
+                    cmd.DisplayName == TestInputData.TestDisplayName &&
+                    cmd.Email == TestInputData.TestEmailAddress
+                )
+            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
+                Data: new CreateUserDataResult(
+                    Guid.NewGuid(),
+                    TestInputData.TestEmailAddress,
+                    TestInputData.TestDisplayName
+                ),
+                IsSuccess: true
+            ));
+
+            var result = await _sut.CreateUser(new CreateUserCommand(
+                TestInputData.TestEmailAddress,
+                TestInputData.TestDisplayName,
+                traceId
+            ));
+
+            Assert.True(result.IsSuccess);
         }
     }
 }

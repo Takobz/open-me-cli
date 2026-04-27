@@ -8,6 +8,6 @@ namespace OpenME.Core.Application.Ports.Out
     /// </summary>
     public interface ICreateUserPort
     {
-        Task<CreateUserDataResult> CreateUser(CreateUserDataCommand command);
+        Task<BaseDataResult<CreateUserDataResult>> CreateUser(CreateUserDataCommand command);
     }
 }
