@@ -4,7 +4,16 @@ using OpenME.Core.Domain.Extensions;
 
 namespace OpenME.Core.Domain.Models
 {
-    public class Me
+    public interface IMeState
+    {
+        public Guid Id { get; }
+
+        public string DisplayName { get; }
+
+        public string Email { get; }
+    }
+
+    public class Me : IMeState
     {
         public Guid Id { get; private set; }
 
@@ -32,6 +41,19 @@ namespace OpenME.Core.Domain.Models
             string displayName
         )
         {
+            return FromState(
+                new Me(
+                    Guid.NewGuid(),
+                    displayName,
+                    email,
+                    []
+                ).GetMeState
+            );
+        }
+
+        public static Me FromState(IMeState state)
+        {
+            var email = state.Email;
             if (email == string.Empty || !email.IsEmailCorrectFormat())
             {
                 throw new DomainValidationException(
@@ -40,13 +62,31 @@ namespace OpenME.Core.Domain.Models
                     )
                 );
             }
+            
+            var displayName = state.DisplayName;
+            if (string.IsNullOrEmpty(displayName))
+            {
+                throw new DomainValidationException(
+                    DomainValidationMessages.OnUserCreateNoName
+                );
+            }
+
+            var userId = state.Id;
+            if (userId == Guid.Empty)
+            {
+                throw new DomainValidationException(
+                    DomainValidationMessages.OnUserCreateInvalidUUID
+                );
+            }
 
             return new Me(
-                Guid.NewGuid(),
-                displayName,
+                state.Id,
+                state.DisplayName,
                 email,
                 [] //TODO: remove from user creation useless
             );
         }
+
+        public IMeState GetMeState => this;
     } 
 }

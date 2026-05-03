@@ -1,5 +1,5 @@
-using OpenME.Core.Application.Models.Data;
 using OpenME.Core.Application.Ports.Out;
+using OpenME.Core.Domain.Models;
 using OpenME.Data.DatabaseProvider;
 
 namespace OpenME.Data.Repository
@@ -20,7 +20,7 @@ namespace OpenME.Data.Repository
             _databaseProvider = databaseProvider;
         }
 
-        public Task<BaseDataResult<CreateUserDataResult>> CreateUser(CreateUserDataCommand command)
+        public Task<Me?> CreateUser(IMeState command)
         {
             throw new NotImplementedException();
         }

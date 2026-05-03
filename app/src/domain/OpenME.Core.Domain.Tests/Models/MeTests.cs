@@ -38,7 +38,7 @@ namespace OpenME.Core.Domain.Tests.Models
             string inputEmail
         )
         {
-            var result = Me.CreateMe(inputEmail, "");
+            var result = Me.CreateMe(inputEmail, "displayName");
             Assert.Equal(inputEmail, result.Email);
             Assert.NotEqual(Guid.Empty, result.Id);
             Assert.Empty(result.OAuthProviders);

@@ -1,11 +1,12 @@
 using Moq;
 using OpenME.Core.Application.Constants;
 using OpenME.Core.Application.Exceptions;
-using OpenME.Core.Application.Models.Data;
 using OpenME.Core.Application.Models.UseCases;
 using OpenME.Core.Application.Ports.Out;
 using OpenME.Core.Application.Services;
 using OpenME.Core.Application.Tests.Constants;
+using OpenME.Core.Domain.Exceptions;
+using OpenME.Core.Domain.Models;
 
 namespace OpenME.Core.Application.Tests.Services
 {
@@ -33,14 +34,11 @@ namespace OpenME.Core.Application.Tests.Services
             );
 
             _mockCreateUserPort.Setup(_ => _.CreateUser(
-                It.Is<CreateUserDataCommand>(cmd =>
+                It.Is<IMeState>(cmd =>
                     cmd.DisplayName == TestInputData.TestDisplayName &&
                     cmd.Email == TestInputData.TestEmailAddress
                 )
-            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
-                Data: null,
-                IsSuccess: false
-            ));
+            )).ReturnsAsync((Me)null!);
 
             var exception = await Assert.ThrowsAsync<ApplicationErrorException>(
                 () => _sut.CreateUser(new CreateUserCommand(
@@ -59,43 +57,19 @@ namespace OpenME.Core.Application.Tests.Services
         }
 
         [Theory]
-        [InlineData(TestInputData.EmptyGuidString, TestInputData.TestEmailAddress, TestInputData.TestDisplayName)]
-        [InlineData(TestInputData.JustAGuid, "", TestInputData.TestDisplayName)]
-        [InlineData(TestInputData.JustAGuid, TestInputData.TestEmailAddress, "")]
-        public async Task UserService_Should_Return_None_Success_Result_When_UserPort_Create_User_With_Empty_Fields(
-            string dataResultId,
-            string dataResultEmail,
-            string dataResultDisplayName
+        [InlineData("", TestInputData.TestDisplayName)]
+        [InlineData(TestInputData.TestEmailAddress, "")]
+        public async Task UserService_Should_Throw_Input_Validation_When_Command_Has_Empty_Fields(
+            string inputEmail,
+            string inputDisplayName
         )
         {
-            var traceId = Guid.NewGuid();
-            var command = new CreateUserCommand(
-                TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName,
-                traceId
-            );
-
-            _mockCreateUserPort.Setup(_ => _.CreateUser(
-                It.Is<CreateUserDataCommand>(cmd =>
-                    cmd.DisplayName == TestInputData.TestDisplayName &&
-                    cmd.Email == TestInputData.TestEmailAddress
-                )
-            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
-                Data: new CreateUserDataResult(
-                    Guid.Parse(dataResultId),
-                    dataResultEmail,
-                    dataResultDisplayName
-                ),
-                IsSuccess: true
-            ));
-
-            var result = await _sut.CreateUser(new CreateUserCommand(
-                TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName,
-                traceId
-            ));
-
-            Assert.False(result.IsSuccess);
+            await Assert.ThrowsAsync<ApplicationInputValidationException>(() => _sut.CreateUser(
+                new CreateUserCommand(
+                inputEmail,
+                inputDisplayName,
+                Guid.NewGuid()
+            )));
         }
 
         [Fact]
@@ -109,17 +83,13 @@ namespace OpenME.Core.Application.Tests.Services
             );
 
             _mockCreateUserPort.Setup(_ => _.CreateUser(
-                It.Is<CreateUserDataCommand>(cmd =>
+                It.Is<IMeState>(cmd =>
                     cmd.DisplayName == TestInputData.TestDisplayName &&
                     cmd.Email == TestInputData.TestEmailAddress
                 )
-            )).ReturnsAsync(new BaseDataResult<CreateUserDataResult>(
-                Data: new CreateUserDataResult(
-                    Guid.NewGuid(),
-                    TestInputData.TestEmailAddress,
-                    TestInputData.TestDisplayName
-                ),
-                IsSuccess: true
+            )).ReturnsAsync(Me.CreateMe(
+                TestInputData.TestEmailAddress,
+                TestInputData.TestDisplayName
             ));
 
             var result = await _sut.CreateUser(new CreateUserCommand(

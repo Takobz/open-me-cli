@@ -1,4 +1,4 @@
-using OpenME.Core.Application.Models.Data;
+using OpenME.Core.Domain.Models;
 
 namespace OpenME.Core.Application.Ports.Out
 {
@@ -8,6 +8,6 @@ namespace OpenME.Core.Application.Ports.Out
     /// </summary>
     public interface ICreateUserPort
     {
-        Task<BaseDataResult<CreateUserDataResult>> CreateUser(CreateUserDataCommand command);
+        Task<Me?> CreateUser(IMeState command);
     }
 }

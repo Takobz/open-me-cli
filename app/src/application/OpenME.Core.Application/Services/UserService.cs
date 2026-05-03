@@ -1,6 +1,5 @@
 using OpenME.Core.Application.Constants;
 using OpenME.Core.Application.Exceptions;
-using OpenME.Core.Application.Models.Data;
 using OpenME.Core.Application.Models.UseCases;
 using OpenME.Core.Application.Ports.In;
 using OpenME.Core.Application.Ports.Out;
@@ -26,15 +25,11 @@ namespace OpenME.Core.Application.Services
                 command.DisplayName
             );
             
-            var createdUserResult = await _createUserPort.CreateUser(
-                new CreateUserDataCommand(
-                    user.Id,
-                    user.DisplayName,
-                    command.Email
-                )
+            var createdUser = await _createUserPort.CreateUser(
+                user.GetMeState
             );
 
-            if (!createdUserResult.IsSuccess || createdUserResult.Data == null)
+            if (createdUser == null)
             {
                 throw new ApplicationErrorException(
                     ApplicationErrorExceptionMessages.UserCreateError(
@@ -45,9 +40,9 @@ namespace OpenME.Core.Application.Services
 
             return await Task.FromResult(
                 new CreateUserResult(
-                    createdUserResult.Data.Id,
-                    createdUserResult.Data.DisplayName,
-                    createdUserResult.Data.Email
+                    createdUser.Id,
+                    createdUser.DisplayName,
+                    createdUser.Email
                 )
             );
         }
