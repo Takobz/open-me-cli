@@ -1,5 +1,9 @@
 <Solution>
   <Folder Name="/adapters/" />
+  <Folder Name="/adapters/in/" />
+  <Folder Name="/adapters/in/web/">
+    <Project Path="adapters/in/web/OpenME.WEB.API/OpenME.WEB.API.csproj" />
+  </Folder>
   <Folder Name="/adapters/out/" />
   <Folder Name="/adapters/out/data/">
     <Project Path="adapters/out/data/OpenME.Data/OpenME.Data.csproj" />

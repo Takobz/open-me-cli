@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OpenME.Core.Application.Models.UseCases;
 
 namespace OpenME.WEB.API.Models.Response
 {
@@ -13,5 +14,16 @@ namespace OpenME.WEB.API.Models.Response
 
         [Required]
         public string Email { get; set; } = string.Empty;
+
+        public CreateUserResponse(
+            Guid userId,
+            string displayName,
+            string email
+        )
+        {
+            UserId = userId;
+            DisplayName = displayName;
+            Email = email;
+        }
     }
 }

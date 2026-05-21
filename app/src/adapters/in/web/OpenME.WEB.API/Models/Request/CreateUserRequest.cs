@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OpenME.Core.Application.Models.UseCases;
 
 namespace OpenME.WEB.API.Models.Request
 {
@@ -10,5 +11,16 @@ namespace OpenME.WEB.API.Models.Request
 
         [Required]
         public string Email { get; set; } = string.Empty;
+
+        public CreateUserCommand ToCommand(
+            Guid traceId
+        )
+        {
+            return new CreateUserCommand(
+                Email,
+                DisplayName,
+                traceId
+            );
+        }
     }
 }
