@@ -1,0 +1,35 @@
+info:
+  name: CreateUser
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{ApiBaseUrl}}/user"
+  body:
+    type: json
+    data: |-
+      {
+        "displayName": "{{TEMP_userName}}",
+        "email": "test@test.com"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const uuid = require('uuid');
+        bru.setEnvVar("TEMP_userName", `bruno-user-${uuid.v4()}`);
+    - type: after-response
+      code: |-
+        if (res.getStatus() === 200) {
+          const data = res.getBody();
+          bru.setEnvVar("TEMP_userId", data.userId);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -6,7 +6,7 @@ namespace OpenME.Core.Application.Services
     /// <summary>
     /// Application services implement in-ports.
     /// </summary>
-    public class OAuthConfiguration : ICreateOAuthAuthenticationLinkUseCase
+    public class OAuthConfigurationService : ICreateOAuthAuthenticationLinkUseCase
     {
         public CreateOAuthLinkResult CreateOAuthLink(CreateOAuthLinkCommand command)
         {

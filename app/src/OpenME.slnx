@@ -1,5 +1,9 @@
 <Solution>
   <Folder Name="/adapters/" />
+  <Folder Name="/adapters/in/" />
+  <Folder Name="/adapters/in/web/">
+    <Project Path="adapters/in/web/OpenME.WEB.API/OpenME.WEB.API.csproj" />
+  </Folder>
   <Folder Name="/adapters/out/" />
   <Folder Name="/adapters/out/data/">
     <Project Path="adapters/out/data/OpenME.Data/OpenME.Data.csproj" />
@@ -11,5 +15,8 @@
   <Folder Name="/domain/">
     <Project Path="domain/OpenME.Core.Domain.Tests/OpenME.Core.Domain.Tests.csproj" />
     <Project Path="domain/OpenME.Core.Domain/OpenME.Core.Domain.csproj" />
+  </Folder>
+  <Folder Name="/infrastructure/">
+    <Project Path="infrastructure/OpenME.Infrastructure/OpenME.Infrastructure.csproj" />
   </Folder>
 </Solution>
