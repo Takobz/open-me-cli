@@ -4,12 +4,7 @@ using OpenME.Data.DatabaseProvider;
 
 namespace OpenME.Data.Repository
 {
-    public interface IUserRepository : ICreateUserPort
-    {
-        
-    }
-
-    public class UserRepository : IUserRepository
+    public class UserRepository : ICreateUserPort
     {
         private readonly IDatabaseProvider _databaseProvider;
 
@@ -20,9 +15,11 @@ namespace OpenME.Data.Repository
             _databaseProvider = databaseProvider;
         }
 
-        public Task<Me?> CreateUser(IMeState command)
+        public async Task<Me?> CreateUser(IMeState command)
         {
-            throw new NotImplementedException();
+            return await _databaseProvider.CreateUser(
+                command
+            );
         }
     }
 }

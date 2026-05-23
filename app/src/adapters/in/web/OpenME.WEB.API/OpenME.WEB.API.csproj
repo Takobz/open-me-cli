@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\application\OpenME.Core.Application\OpenME.Core.Application.csproj" />
     <ProjectReference Include="..\..\..\..\domain\OpenME.Core.Domain\OpenME.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\infrastructure\OpenME.Infrastructure\OpenME.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

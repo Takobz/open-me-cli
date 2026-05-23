@@ -19,10 +19,11 @@ The folder structure:
 root
  | --> adapter
         | --> in
-               | --> REST API
-               | --> CLI 
+               | --> OpenME.WEB.API
         | --> out
-               | --> Data Layer Integration
+               | --> OpenME.Data
+ | --> infrastructure
+        | --> OpenME.Infrastructure
  | --> domain
         | --> OpenME.Core.Domain
         | --> OpenME.Core.Domain.Tests
