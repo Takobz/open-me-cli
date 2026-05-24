@@ -10,7 +10,6 @@ namespace OpenME.WEB.API.Controllers
     [Route("user")]
     public class UserController : ControllerBase
     {
-        //TODO: add base controller that logs traceId...
         private readonly ICreateUserUseCase _createUserUseCase;
 
         public UserController(
@@ -25,7 +24,7 @@ namespace OpenME.WEB.API.Controllers
             [FromBody] CreateUserRequest request
         )
         {
-            var traceId = Guid.NewGuid(); //TODO: Add func to try get from header.
+            var traceId = Guid.NewGuid();
             var user = await _createUserUseCase.CreateUser(
                 request.ToCommand(
                     traceId
