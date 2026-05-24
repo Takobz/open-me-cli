@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using OpenME.Infrastructure.DependencyInjection;
+using OpenME.WEB.API.Errors;
+using OpenME.WEB.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IClientErrorFactory, APIClientErrorFactory>();
+builder.Services.AddControllers()
+    .AddCustomClientErrorOptions();
 
-builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
