@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using OpenME.WEB.API.Models.Response;
 
@@ -22,7 +23,8 @@ namespace OpenME.WEB.API.Extensions
                     }
 
                     return new BadRequestObjectResult(
-                        new BadRequestResponse(
+                        new APIErrorResponse(
+                            (int)HttpStatusCode.BadRequest,
                             [.. errors]
                         )
                     );

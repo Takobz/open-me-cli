@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using OpenME.Infrastructure.DependencyInjection;
-using OpenME.WEB.API.Errors;
+using OpenME.WEB.API.Exceptions;
 using OpenME.WEB.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddExceptionHandler<APIExceptionHandler>();
+
 // Add services to the container.
-builder.Services.AddTransient<IClientErrorFactory, APIClientErrorFactory>();
 builder.Services.AddControllers()
     .AddCustomClientErrorOptions();
 
@@ -16,6 +16,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddUserUseCases();
 
 var app = builder.Build();
+
+// Passing empty options because of issue:
+// https://github.com/dotnet/aspnetcore/issues/62200
+app.UseExceptionHandler(_ => {});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
