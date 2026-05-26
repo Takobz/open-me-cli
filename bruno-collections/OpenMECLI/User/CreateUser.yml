@@ -6,6 +6,9 @@ info:
 http:
   method: POST
   url: "{{ApiBaseUrl}}/user"
+  headers:
+    - name: x-trace-id
+      value: "{{TEMP_trace_id}}"
   body:
     type: json
     data: |-
@@ -21,6 +24,7 @@ runtime:
       code: |-
         const uuid = require('uuid');
         bru.setEnvVar("TEMP_userName", `bruno-user-${uuid.v4()}`);
+        bru.setEnvVar("TEMP_trace_id", uuid.v4());
     - type: after-response
       code: |-
         if (res.getStatus() === 200) {
