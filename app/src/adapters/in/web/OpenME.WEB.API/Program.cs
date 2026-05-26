@@ -4,7 +4,10 @@ using OpenME.WEB.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Logging.AddConsole();
+
 builder.Services.AddExceptionHandler<APIExceptionHandler>();
+builder.Services.AddTraceContext();
 
 // Add services to the container.
 builder.Services.AddControllers()

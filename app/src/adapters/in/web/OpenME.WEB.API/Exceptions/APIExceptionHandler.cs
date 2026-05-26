@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using OpenME.Core.Application.Exceptions;
 using OpenME.Core.Domain.Exceptions;
 using OpenME.WEB.API.Models.Response;
 
@@ -21,6 +22,18 @@ namespace OpenME.WEB.API.Exceptions
                     new APIErrorResponse(
                         (int)HttpStatusCode.BadRequest,
                         [domainException!.ValidationMessage]
+                    ),
+                    cancellationToken
+                );
+            }
+
+            if (exception is ApplicationErrorException)
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await httpContext.Response.WriteAsJsonAsync(
+                    new APIErrorResponse(
+                        (int)HttpStatusCode.InternalServerError,
+                        [(exception as ApplicationErrorException)!.ErrorMessage]
                     ),
                     cancellationToken
                 );

@@ -1,11 +1,12 @@
+using Microsoft.Extensions.Logging;
 using Moq;
 using OpenME.Core.Application.Constants;
 using OpenME.Core.Application.Exceptions;
 using OpenME.Core.Application.Models.UseCases;
+using OpenME.Core.Application.Observability;
 using OpenME.Core.Application.Ports.Out;
 using OpenME.Core.Application.Services;
 using OpenME.Core.Application.Tests.Constants;
-using OpenME.Core.Domain.Exceptions;
 using OpenME.Core.Domain.Models;
 
 namespace OpenME.Core.Application.Tests.Services
@@ -13,13 +14,20 @@ namespace OpenME.Core.Application.Tests.Services
     public class UserServiceTests
     {
         private readonly Mock<ICreateUserPort> _mockCreateUserPort;
+        private readonly Mock<ITraceContext> _mockTraceContext;
+        private readonly Mock<ILogger<UserService>> _mockLogger;
         private readonly UserService _sut;
 
         public UserServiceTests()
         {
             _mockCreateUserPort = new Mock<ICreateUserPort>();
+            _mockTraceContext = new Mock<ITraceContext>();
+            _mockLogger = new Mock<ILogger<UserService>>();
+
             _sut = new UserService(
-                _mockCreateUserPort.Object
+                _mockCreateUserPort.Object,
+                _mockTraceContext.Object,
+                _mockLogger.Object
             );
         }
 
@@ -29,8 +37,7 @@ namespace OpenME.Core.Application.Tests.Services
             var traceId = Guid.NewGuid();
             var command = new CreateUserCommand(
                 TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName,
-                Guid.NewGuid()
+                TestInputData.TestDisplayName
             );
 
             _mockCreateUserPort.Setup(_ => _.CreateUser(
@@ -40,11 +47,13 @@ namespace OpenME.Core.Application.Tests.Services
                 )
             )).ReturnsAsync((Me)null!);
 
+            _mockTraceContext.Setup(_ => _.TraceId)
+                .Returns(traceId);
+
             var exception = await Assert.ThrowsAsync<ApplicationErrorException>(
                 () => _sut.CreateUser(new CreateUserCommand(
                     TestInputData.TestEmailAddress,
-                    TestInputData.TestDisplayName,
-                    traceId
+                    TestInputData.TestDisplayName
                 ))
             );
 
@@ -67,8 +76,7 @@ namespace OpenME.Core.Application.Tests.Services
             await Assert.ThrowsAsync<ApplicationInputValidationException>(() => _sut.CreateUser(
                 new CreateUserCommand(
                 inputEmail,
-                inputDisplayName,
-                Guid.NewGuid()
+                inputDisplayName
             )));
         }
 
@@ -78,8 +86,7 @@ namespace OpenME.Core.Application.Tests.Services
             var traceId = Guid.NewGuid();
             var command = new CreateUserCommand(
                 TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName,
-                traceId
+                TestInputData.TestDisplayName
             );
 
             _mockCreateUserPort.Setup(_ => _.CreateUser(
@@ -94,8 +101,7 @@ namespace OpenME.Core.Application.Tests.Services
 
             var result = await _sut.CreateUser(new CreateUserCommand(
                 TestInputData.TestEmailAddress,
-                TestInputData.TestDisplayName,
-                traceId
+                TestInputData.TestDisplayName
             ));
 
             Assert.True(result.IsSuccess);

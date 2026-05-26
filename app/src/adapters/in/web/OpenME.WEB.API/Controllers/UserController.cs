@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OpenME.Core.Application.Observability;
 using OpenME.Core.Application.Ports.In;
 using OpenME.WEB.API.Models;
 using OpenME.WEB.API.Models.Request;
@@ -11,12 +12,18 @@ namespace OpenME.WEB.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly ICreateUserUseCase _createUserUseCase;
+        private readonly ILogger<UserController> _logger;
+        private readonly ITraceContext _traceContext;
 
         public UserController(
-            ICreateUserUseCase createUserUseCase
+            ICreateUserUseCase createUserUseCase,
+            ITraceContext traceContext,
+            ILogger<UserController> logger
         )
         {
             _createUserUseCase = createUserUseCase;
+            _traceContext = traceContext;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -24,11 +31,14 @@ namespace OpenME.WEB.API.Controllers
             [FromBody] CreateUserRequest request
         )
         {
-            var traceId = Guid.NewGuid();
+            _logger.LogDebug(
+                "Executing CreateUser request Path: {UrlPath}, TraceId {TraceId}",
+                HttpContext.Request.Path,
+                _traceContext.TraceId
+            );
+
             var user = await _createUserUseCase.CreateUser(
-                request.ToCommand(
-                    traceId
-                )
+                request.ToCommand()
             );
 
             return Ok(user.FromUserResult());
