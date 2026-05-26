@@ -1,4 +1,5 @@
 using OpenME.Core.Application.Observability;
+using OpenME.WEB.API.Constants;
 
 namespace OpenME.WEB.API.Contexts
 {
@@ -9,10 +10,23 @@ namespace OpenME.WEB.API.Contexts
     {
         private readonly Guid _traceId;
 
-        public TraceContext()
+        public TraceContext(
+            IHttpContextAccessor httpContextAccessor
+        )
         {
-           //TODO: Add httpContextAccessor to try read header. 
-           _traceId = Guid.NewGuid();
+            if (
+                httpContextAccessor.HttpContext!.Request.Headers.TryGetValue(
+                    HeaderConstants.TraceIdHeaderKey, 
+                    out var traceId) &&
+                Guid.TryParse(traceId, out var result)
+            )
+            {
+                _traceId = result;
+            }
+            else
+            {
+                _traceId = Guid.NewGuid();
+            } 
         }
 
         public Guid TraceId => _traceId;
