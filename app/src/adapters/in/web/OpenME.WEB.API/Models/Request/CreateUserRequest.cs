@@ -12,14 +12,11 @@ namespace OpenME.WEB.API.Models.Request
         [Required]
         public string Email { get; set; } = string.Empty;
 
-        public CreateUserCommand ToCommand(
-            Guid traceId
-        )
+        public CreateUserCommand ToCommand()
         {
             return new CreateUserCommand(
                 Email,
-                DisplayName,
-                traceId
+                DisplayName
             );
         }
     }

@@ -7,12 +7,10 @@ namespace OpenME.Core.Application.Models.UseCases
     {
         public string Email { get; private set; }
         public string DisplayName { get; private set; }
-        public Guid TraceId { get; private set; }
 
         public CreateUserCommand(
             string email,
-            string displayName,
-            Guid traceId
+            string displayName
         )
         {
             if (string.IsNullOrEmpty(email))
@@ -31,7 +29,6 @@ namespace OpenME.Core.Application.Models.UseCases
 
             Email = email;
             DisplayName = displayName;
-            TraceId = traceId;
         }
     }
 }
