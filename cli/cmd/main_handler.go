@@ -2,15 +2,17 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
+	"os"
 )
 
 type CmdHandlerContext struct {
 	cmd       string
-	arguments map[string]string
+	arguments []string
 }
 
 type CmdHandlerResult struct {
-	resultText string
+	ResultText string
 }
 
 func (context *CmdHandlerContext) HandleCommand() (*CmdHandlerResult, error) {
@@ -27,9 +29,8 @@ func (context *CmdHandlerContext) HandleCommand() (*CmdHandlerResult, error) {
 			resultText += key + " : " + value + "\n"
 		}
 
-		return &CmdHandlerResult{
-			resultText: resultText,
-		}, nil
+		fmt.Print(resultText)
+		os.Exit(1)
 	}
 
 	cmdFunc := commandHandlers()[context.cmd]
@@ -39,7 +40,7 @@ func (context *CmdHandlerContext) HandleCommand() (*CmdHandlerResult, error) {
 
 func NewCommandContext(
 	command string,
-	arguments map[string]string) CmdHandlerContext {
+	arguments []string) CmdHandlerContext {
 	return CmdHandlerContext{
 		cmd:       command,
 		arguments: arguments,
@@ -52,8 +53,8 @@ func knownCommand() map[string]string {
 	}
 }
 
-func commandHandlers() map[string](func(arguments map[string]string) *CmdHandlerResult) {
-	return map[string](func(arguments map[string]string) *CmdHandlerResult){
+func commandHandlers() map[string](func(arguments []string) *CmdHandlerResult) {
+	return map[string](func(arguments []string) *CmdHandlerResult){
 		"print": Print,
 	}
 }
