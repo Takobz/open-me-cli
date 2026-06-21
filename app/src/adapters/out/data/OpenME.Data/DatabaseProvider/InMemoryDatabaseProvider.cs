@@ -56,5 +56,39 @@ namespace OpenME.Data.DatabaseProvider
                 Me.FromState(meState)
             );
         }
+
+        public async Task<IEnumerable<Me>> GetAllMes()
+        {
+            List<Me> users = [];
+
+            /*
+            * Assumes one uses the MemoryCache by MS
+            * Should be true for this project since I am playing around.
+            */
+            var keys = (_memoryCache as MemoryCache)!.Keys;
+            foreach (var key in keys)
+            {
+                if(_memoryCache.TryGetValue(key, out var user) && user != null)
+                {
+                    users.Add((user as Me)!);
+                }
+            }
+
+            return await Task.FromResult(
+                users.AsEnumerable()
+            );
+        }
+
+        public async Task<Me?> GetMeById(Guid Id)
+        {
+            if(_memoryCache.TryGetValue(Id, out var user))
+            {
+                return await Task.FromResult(
+                    (user as Me)!
+                );
+            }
+
+            return null;
+        }
     }
 }

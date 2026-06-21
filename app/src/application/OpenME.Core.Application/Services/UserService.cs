@@ -9,19 +9,22 @@ using OpenME.Core.Domain.Models;
 
 namespace OpenME.Core.Application.Services
 {
-    public class UserService : ICreateUserUseCase
+    public class UserService : ICreateUserUseCase, IGetUserUseCase
     {
         private readonly ICreateUserPort _createUserPort;
+        private readonly IGetUserPort _getUserPort;
         private readonly ITraceContext _traceContext;
         private readonly ILogger<UserService> _logger;
 
         public UserService(
             ICreateUserPort createUserPort,
+            IGetUserPort getUserPort,
             ITraceContext traceContext,
             ILogger<UserService> logger
         )
         {
             _createUserPort = createUserPort;
+            _getUserPort = getUserPort;
             _traceContext = traceContext;
             _logger = logger;
         }
@@ -67,6 +70,33 @@ namespace OpenME.Core.Application.Services
                     createdUser.DisplayName,
                     createdUser.Email
                 )
+            );
+        }
+
+        public async Task<GetAllUsersResult> GetAllUsers()
+        {
+            _logger.LogDebug(
+                "{UseCase} Getting all users for or TraceId {TraceId}",
+                nameof(ICreateUserUseCase),
+                _traceContext.TraceId
+            );
+
+            var mes = await _getUserPort.GetAllMes();
+            var users = mes.Select(x => new GetAllUserUserResult(
+                x.Id,
+                x.DisplayName,
+                x.Email
+            ));
+
+            _logger.LogDebug(
+                "{UseCase} Got {GetAllUsersCount} users for or TraceId {TraceId}",
+                nameof(ICreateUserUseCase),
+                users.Count(),
+                _traceContext.TraceId
+            );
+
+            return await Task.FromResult(
+                new GetAllUsersResult(users)
             );
         }
     }

@@ -14,8 +14,10 @@ namespace OpenME.Infrastructure.DependencyInjection
         )
         {
             services.AddTransient<ICreateUserUseCase, UserService>();
+            services.AddTransient<IGetUserUseCase, UserService>();
             services.AddTransient<ICreateOAuthAuthenticationLinkUseCase, OAuthConfigurationService>();
             services.AddTransient<ICreateUserPort, UserRepository>();
+            services.AddTransient<IGetUserPort, UserRepository>();
             services.AddTransient<IDatabaseProvider, InMemoryDatabaseProvider>();
             services.AddMemoryCache();
             return services;

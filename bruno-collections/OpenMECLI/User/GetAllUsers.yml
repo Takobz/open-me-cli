@@ -1,0 +1,32 @@
+info:
+  name: GetAllUsers
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{ApiBaseUrl}}/user"
+  headers:
+    - name: x-trace-id
+      value: "{{TEMP_trace_id}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const uuid = require('uuid');
+        bru.setEnvVar("TEMP_userName", `bruno-user-${uuid.v4()}`);
+        bru.setEnvVar("TEMP_trace_id", uuid.v4());
+    - type: after-response
+      code: |-
+        if (res.getStatus() === 200) {
+          const data = res.getBody();
+          bru.setEnvVar("TEMP_userId", data.userId);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
