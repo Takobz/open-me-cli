@@ -10,7 +10,8 @@ import (
 func main() {
 	args := os.Args
 	if len(args) == 0 || len(args) == -1 {
-
+		os.Exit(1)
+		fmt.Print("At least one Argument should be passed")
 	}
 
 	command := args[1]

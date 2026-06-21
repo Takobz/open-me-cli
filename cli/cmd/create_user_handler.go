@@ -42,7 +42,7 @@ func (handler *CreateUserHandler) CreateUser(arguments []string) *CmdHandlerResu
 	)
 
 	return &CmdHandlerResult{
-		ResultText: "User created with id " + createdUser.Id + "and name " + createdUser.DisplayName,
+		ResultText: "User created with id " + createdUser.Id + " and name " + createdUser.DisplayName,
 	}
 }
 

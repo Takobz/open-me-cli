@@ -25,9 +25,8 @@ func (api *OpenMeApiImpl) CreateUser(user models.CreateUserRequest) (*models.Cre
 		}
 	}
 
-	return nil, err
+	return &createdUser, err
 }
-
 
 /*
 * For now this only supports JSON content type
@@ -45,7 +44,7 @@ func sendHttpRequest(
 			panic(err)
 		}
 
-		req, err := http.NewRequest(httpVerb, url, bytes.NewBuffer(jsonData))
+		req, err = http.NewRequest(httpVerb, url, bytes.NewBuffer(jsonData))
 		req.Header.Set("Content-Type", "application/json")
 	} else {
 		req, err = http.NewRequest(httpVerb, url, nil)

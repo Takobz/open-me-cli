@@ -6,7 +6,7 @@ type CreateUserRequest struct {
 }
 
 type CreateUserResponse struct {
-	Id          string `json:"id"`
+	Id          string `json:"userId"`
 	DisplayName string `json:"displayName"`
 	Email       string `json:"email"`
 }
