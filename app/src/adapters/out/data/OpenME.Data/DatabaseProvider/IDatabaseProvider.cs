@@ -8,5 +8,9 @@ namespace OpenME.Data.DatabaseProvider
     public interface IDatabaseProvider
     {
         public Task<Me> CreateUser(IMeState meState);
+
+        public Task<IEnumerable<Me>> GetAllMes();
+
+        public Task<Me?> GetMeById(Guid Id);
     }
 }

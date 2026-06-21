@@ -10,3 +10,7 @@ type CreateUserResponse struct {
 	DisplayName string `json:"displayName"`
 	Email       string `json:"email"`
 }
+
+type GetAllUsersResponse struct {
+	Users []CreateUserResponse `json:"users"`
+}
