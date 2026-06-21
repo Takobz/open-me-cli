@@ -28,6 +28,22 @@ func (api *OpenMeApiImpl) CreateUser(user models.CreateUserRequest) (*models.Cre
 	return &createdUser, err
 }
 
+func (api *OpenMeApiImpl) GetAllUsers() (*models.GetAllUsersResponse, error) {
+	res := sendHttpRequest("GET", "http://localhost:5151/user", nil)
+
+	var users models.GetAllUsersResponse
+	var err error
+	if res.Status == "200 OK" {
+		body, err := io.ReadAll(res.Body)
+		if err == nil {
+			err = json.Unmarshal(body, &users)
+			return &users, nil
+		}
+	}
+
+	return &users, err
+}
+
 /*
 * For now this only supports JSON content type
  */

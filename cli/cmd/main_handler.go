@@ -49,14 +49,16 @@ func NewCommandContext(
 
 func knownCommand() map[string]string {
 	return map[string]string{
-		"print":       "print something on the screen",
-		"create-user": "creates user in the open me cli",
+		"print":         "print something on the screen",
+		"create-user":   "creates user in the open me cli",
+		"get-all-users": "gets all users that exist in open me app",
 	}
 }
 
 func commandHandlers() map[string](func(arguments []string) *CmdHandlerResult) {
 	return map[string](func(arguments []string) *CmdHandlerResult){
-		"print":       Print,
-		"create-user": CreateUserCommandHadler().CreateUser,
+		"print":         Print,
+		"create-user":   CreateUserCommandHadler().CreateUser,
+		"get-all-users": CreateAllUsersHandler().GetAllUsers,
 	}
 }
