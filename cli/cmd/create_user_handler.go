@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -41,8 +42,13 @@ func (handler *CreateUserHandler) CreateUser(arguments []string) *CmdHandlerResu
 		*email,
 	)
 
+	jsonData, err := json.Marshal(createdUser)
+	if err != nil {
+		panic(err)
+	}
+
 	return &CmdHandlerResult{
-		ResultText: "User created with id " + createdUser.Id + " and name " + createdUser.DisplayName,
+		ResultText: string(jsonData),
 	}
 }
 
