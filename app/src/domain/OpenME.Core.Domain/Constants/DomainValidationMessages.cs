@@ -12,4 +12,10 @@ namespace OpenME.Core.Domain.Constants
         public static string OnUserCreateExists(Guid id) =>
             $"User with id: {id} already exists";
     }
+
+
+    public static class OAuthProviderDomainValidationMessages
+    {
+        public const string OAuthProviderNameEmpty = "OAuth Provider name cannot be empty";
+    }
 }
