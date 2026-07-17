@@ -7,6 +7,8 @@ namespace OpenME.Core.Domain.Models
     {
         public Guid Id { get; }
 
+        public Guid UserId { get; }
+
         public string Name { get; }
 
         public IEnumerable<OAuthProviderClientApp> ClientApps { get; }
@@ -16,12 +18,15 @@ namespace OpenME.Core.Domain.Models
     {
         public Guid Id { get; private set; }
 
+        public Guid UserId { get; private set; }
+
         public string Name { get; private set; } = string.Empty;
 
         public IEnumerable<OAuthProviderClientApp> ClientApps { get; private set; } = [];
 
         private OAuthProvider(
             Guid id,
+            Guid userId,
             string name,
             IEnumerable<OAuthProviderClientApp> clientApps
         )
@@ -35,15 +40,18 @@ namespace OpenME.Core.Domain.Models
 
             Id = id;
             Name = name;
+            UserId = userId;
             ClientApps = clientApps;
         }
 
         public static OAuthProvider CreateProvider(
-            string oauthProviderName
+            string oauthProviderName,
+            Guid userId
         )
         {
             return new OAuthProvider(
                 Guid.NewGuid(),
+                userId,
                 oauthProviderName,
                 []
             );
@@ -53,6 +61,7 @@ namespace OpenME.Core.Domain.Models
         {
             return new OAuthProvider(
                 state.Id,
+                state.UserId,
                 state.Name,
                 state.ClientApps
             );

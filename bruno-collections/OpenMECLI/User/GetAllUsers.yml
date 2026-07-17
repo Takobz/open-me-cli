@@ -18,12 +18,6 @@ runtime:
         const uuid = require('uuid');
         bru.setEnvVar("TEMP_userName", `bruno-user-${uuid.v4()}`);
         bru.setEnvVar("TEMP_trace_id", uuid.v4());
-    - type: after-response
-      code: |-
-        if (res.getStatus() === 200) {
-          const data = res.getBody();
-          bru.setEnvVar("TEMP_userId", data.userId);
-        }
 
 settings:
   encodeUrl: true

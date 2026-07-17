@@ -24,6 +24,48 @@ namespace OpenME.Data.DatabaseProvider
             _logger = logger;
         }
 
+        public async Task<OAuthProvider> CreateOAuthProvider(IOAuthProviderState state)
+        {
+            var cacheKey = $"usr={state.UserId}-provider={state.Id}";
+            if (_memoryCache.TryGetValue(cacheKey, out _))
+            {
+                _logger.LogDebug(
+                    "{DatabaseProvider} found OAuth Provider collision for UserId {UserId}, ProviderId {OAuthProviderId} for TraceId {TraceId}",
+                    nameof(InMemoryDatabaseProvider),
+                    state.UserId,
+                    state.Id,
+                    _traceContext.TraceId
+                );
+
+                // Ideally deal with collision but for now I will throw domain val exception.
+                throw new DomainValidationException(
+                    OAuthProviderDomainValidationMessages.OnOAuthAppCreateExists(
+                        state.UserId,
+                        state.Id
+                    )
+                );
+            }
+
+            _memoryCache.Set(
+                cacheKey,
+                state
+            );
+
+            _logger.LogDebug(
+                "{DatabaseProvider} inserted OAuth Provider for UserId {UserId}, ProviderId {OAuthProviderId} for TraceId {TraceId}",
+                nameof(InMemoryDatabaseProvider),
+                state.UserId,
+                state.Id,
+                _traceContext.TraceId
+            );
+
+            return await Task.FromResult( 
+                OAuthProvider.FromState(
+                    state
+                )
+            );
+        }
+
         public async Task<Me> CreateUser(IMeState meState)
         {
             if(_memoryCache.TryGetValue(meState.Id, out _))

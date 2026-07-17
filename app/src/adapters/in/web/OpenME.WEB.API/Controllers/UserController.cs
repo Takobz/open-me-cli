@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using OpenME.Core.Application.Models.UseCases;
 using OpenME.Core.Application.Observability;
 using OpenME.Core.Application.Ports.In;
 using OpenME.WEB.API.Models;
@@ -13,18 +15,21 @@ namespace OpenME.WEB.API.Controllers
     {
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IGetUserUseCase _getUserUseCase;
+        private readonly ICreateOAuthProviderUseCase _createOAuthProviderUseCase;
         private readonly ILogger<UserController> _logger;
         private readonly ITraceContext _traceContext;
 
         public UserController(
             ICreateUserUseCase createUserUseCase,
             IGetUserUseCase getUserUseCase,
+            ICreateOAuthProviderUseCase createOAuthProviderUseCase,
             ITraceContext traceContext,
             ILogger<UserController> logger
         )
         {
             _createUserUseCase = createUserUseCase;
             _getUserUseCase = getUserUseCase;
+            _createOAuthProviderUseCase = createOAuthProviderUseCase;
             _traceContext = traceContext;
             _logger = logger;
         }
@@ -58,6 +63,34 @@ namespace OpenME.WEB.API.Controllers
 
             var users = await _getUserUseCase.GetAllUsers();
             return Ok(new GetAllUsersResponse(users));
+        }
+
+        [HttpPost]
+        [Route("{userId}/providers")]
+        public async Task<ActionResult<CreateOAuthProviderResponse>> CreateOAuthProvider(
+            Guid userId,
+            [FromBody] CreateOAuthProviderRequest request
+        )
+        {
+            var result = await _createOAuthProviderUseCase.CreateOAuthProvider(
+                new CreateOAuthProviderCommand(
+                    request.OAuthProviderName,
+                    userId
+                )
+            );
+
+            if (!result.IsSuccess)
+            {
+                return Ok(new CreateOAuthProviderResponse(
+                    Guid.Empty,
+                    string.Empty
+                ));
+            }
+
+            return Created(
+                $"{HttpContext.Request.GetEncodedUrl()}/{result.Id}",
+                result.FromOAuthProviderResult()
+            );
         }
     }
 }

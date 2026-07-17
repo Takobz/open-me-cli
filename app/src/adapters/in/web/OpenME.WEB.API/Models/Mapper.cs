@@ -16,5 +16,15 @@ namespace OpenME.WEB.API.Models
                 result.Email
             );
         }
+
+        public static CreateOAuthProviderResponse FromOAuthProviderResult(
+            this CreateOAuthProviderResult result
+        )
+        {
+            return new CreateOAuthProviderResponse(
+                result.Id,
+                result.Name
+            );
+        }
     }
 }
