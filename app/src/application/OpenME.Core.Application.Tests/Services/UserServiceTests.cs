@@ -14,6 +14,7 @@ namespace OpenME.Core.Application.Tests.Services
     public class UserServiceTests
     {
         private readonly Mock<ICreateUserPort> _mockCreateUserPort;
+        private readonly Mock<IGetUserPort> _mockGetUserPort;
         private readonly Mock<ITraceContext> _mockTraceContext;
         private readonly Mock<ILogger<UserService>> _mockLogger;
         private readonly UserService _sut;
@@ -21,11 +22,13 @@ namespace OpenME.Core.Application.Tests.Services
         public UserServiceTests()
         {
             _mockCreateUserPort = new Mock<ICreateUserPort>();
+            _mockGetUserPort = new Mock<IGetUserPort>();
             _mockTraceContext = new Mock<ITraceContext>();
             _mockLogger = new Mock<ILogger<UserService>>();
 
             _sut = new UserService(
                 _mockCreateUserPort.Object,
+                _mockGetUserPort.Object,
                 _mockTraceContext.Object,
                 _mockLogger.Object
             );

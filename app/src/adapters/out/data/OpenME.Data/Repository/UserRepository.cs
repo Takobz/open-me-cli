@@ -4,7 +4,11 @@ using OpenME.Data.DatabaseProvider;
 
 namespace OpenME.Data.Repository
 {
-    public class UserRepository : ICreateUserPort, IGetUserPort
+    public class UserRepository :
+        ICreateUserPort,
+        IGetUserPort,
+        ICreateOAuthProviderPort,
+        IGetOAuthProviderPort
     {
         private readonly IDatabaseProvider _databaseProvider;
 
@@ -13,6 +17,13 @@ namespace OpenME.Data.Repository
         )
         {
             _databaseProvider = databaseProvider;
+        }
+
+        public async Task<OAuthProvider?> CreateOAuthProvider(IOAuthProviderState state)
+        {
+            return await _databaseProvider.CreateOAuthProvider(
+                state
+            );
         }
 
         public async Task<Me?> CreateUser(IMeState command)
@@ -30,6 +41,21 @@ namespace OpenME.Data.Repository
         public async Task<Me?> GetMeById(Guid Id)
         {
             return await _databaseProvider.GetMeById(Id);
+        }
+
+        public async Task<OAuthProvider?> GetOAuthProvider(Guid userId, Guid id)
+        {
+            return await _databaseProvider.GetOAuthProvider(
+                userId,
+                id
+            );
+        }
+
+        public async Task<IEnumerable<OAuthProvider>> GetUserOAuthProviders(Guid userId)
+        {
+            return await _databaseProvider.GetUserOAuthProviders(
+                userId
+            );
         }
     }
 }
