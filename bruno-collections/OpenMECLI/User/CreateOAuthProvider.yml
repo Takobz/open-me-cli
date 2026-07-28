@@ -17,6 +17,15 @@ http:
       }
   auth: inherit
 
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.getStatus() === 201) {
+          const data = res.getBody();
+          bru.setEnvVar("TEMP_providerId", data.id);
+        }
+
 settings:
   encodeUrl: true
   timeout: 0
