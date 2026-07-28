@@ -66,6 +66,75 @@ namespace OpenME.Data.DatabaseProvider
             );
         }
 
+        public async Task<OAuthProvider?> GetOAuthProvider(Guid userId, Guid id)
+        {
+            var cacheKey = $"usr={userId}-provider={id}";
+            if (_memoryCache.TryGetValue(cacheKey, out var provider) && provider is IOAuthProviderState state)
+            {
+                _logger.LogDebug(
+                    "{DatabaseProvider} found OAuth Provider for UserId {UserId}, ProviderId {OAuthProviderId} for TraceId {TraceId}",
+                    nameof(InMemoryDatabaseProvider),
+                    userId,
+                    id,
+                    _traceContext.TraceId
+                );
+
+                return await Task.FromResult(
+                    OAuthProvider.FromState(
+                        state
+                    )
+                );
+            }
+
+            _logger.LogDebug(
+                "{DatabaseProvider} could not find OAuth Provider for UserId {UserId}, ProviderId {OAuthProviderId} for TraceId {TraceId}",
+                nameof(InMemoryDatabaseProvider),
+                userId,
+                id,
+                _traceContext.TraceId
+            );
+
+            return null;
+        }
+
+        public async Task<IEnumerable<OAuthProvider>> GetUserOAuthProviders(Guid userId)
+        {
+            List<OAuthProvider> providers = [];
+
+            /*
+            * Assumes one uses the MemoryCache by MS
+            * Should be true for this project since I am playing around.
+            */
+            var userProviderKeyPrefix = $"usr={userId}-provider=";
+            var keys = (_memoryCache as MemoryCache)!.Keys;
+            foreach (var key in keys)
+            {
+                if (key is string cacheKey &&
+                    cacheKey.StartsWith(userProviderKeyPrefix) &&
+                    _memoryCache.TryGetValue(cacheKey, out var provider) &&
+                    provider is IOAuthProviderState state)
+                {
+                    providers.Add(
+                        OAuthProvider.FromState(
+                            state
+                        )
+                    );
+                }
+            }
+
+            _logger.LogDebug(
+                "{DatabaseProvider} found {OAuthProvidersCount} OAuth Providers for UserId {UserId} for TraceId {TraceId}",
+                nameof(InMemoryDatabaseProvider),
+                providers.Count,
+                userId,
+                _traceContext.TraceId
+            );
+
+            return await Task.FromResult(
+                providers.AsEnumerable()
+            );
+        }
+
         public async Task<Me> CreateUser(IMeState meState)
         {
             if(_memoryCache.TryGetValue(meState.Id, out _))
@@ -110,9 +179,9 @@ namespace OpenME.Data.DatabaseProvider
             var keys = (_memoryCache as MemoryCache)!.Keys;
             foreach (var key in keys)
             {
-                if(_memoryCache.TryGetValue(key, out var user) && user != null)
+                if(_memoryCache.TryGetValue(key, out var user) && user is Me me)
                 {
-                    users.Add((user as Me)!);
+                    users.Add(me);
                 }
             }
 

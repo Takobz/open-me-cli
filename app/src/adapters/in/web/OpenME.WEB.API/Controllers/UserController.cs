@@ -16,6 +16,7 @@ namespace OpenME.WEB.API.Controllers
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IGetUserUseCase _getUserUseCase;
         private readonly ICreateOAuthProviderUseCase _createOAuthProviderUseCase;
+        private readonly IGetOAuthProviderUseCase _getOAuthProviderUseCase;
         private readonly ILogger<UserController> _logger;
         private readonly ITraceContext _traceContext;
 
@@ -23,6 +24,7 @@ namespace OpenME.WEB.API.Controllers
             ICreateUserUseCase createUserUseCase,
             IGetUserUseCase getUserUseCase,
             ICreateOAuthProviderUseCase createOAuthProviderUseCase,
+            IGetOAuthProviderUseCase getOAuthProviderUseCase,
             ITraceContext traceContext,
             ILogger<UserController> logger
         )
@@ -30,6 +32,7 @@ namespace OpenME.WEB.API.Controllers
             _createUserUseCase = createUserUseCase;
             _getUserUseCase = getUserUseCase;
             _createOAuthProviderUseCase = createOAuthProviderUseCase;
+            _getOAuthProviderUseCase = getOAuthProviderUseCase;
             _traceContext = traceContext;
             _logger = logger;
         }
@@ -67,7 +70,7 @@ namespace OpenME.WEB.API.Controllers
 
         [HttpPost]
         [Route("{userId}/providers")]
-        public async Task<ActionResult<CreateOAuthProviderResponse>> CreateOAuthProvider(
+        public async Task<ActionResult<BaseOAuthProviderResponse>> CreateOAuthProvider(
             Guid userId,
             [FromBody] CreateOAuthProviderRequest request
         )
@@ -81,7 +84,7 @@ namespace OpenME.WEB.API.Controllers
 
             if (!result.IsSuccess)
             {
-                return Ok(new CreateOAuthProviderResponse(
+                return Ok(new BaseOAuthProviderResponse(
                     Guid.Empty,
                     string.Empty
                 ));
@@ -91,6 +94,51 @@ namespace OpenME.WEB.API.Controllers
                 $"{HttpContext.Request.GetEncodedUrl()}/{result.Id}",
                 result.FromOAuthProviderResult()
             );
+        }
+
+        [HttpGet]
+        [Route("{userId}/providers")]
+        public async Task<ActionResult<GetUserOAuthProvidersResponse>> GetOAuthProvidersByUserId(
+            Guid userId
+        )
+        {
+            _logger.LogDebug(
+                "Executing GetOAuthProvidersByUserId request Path: {UrlPath}, TraceId {TraceId}",
+                HttpContext.Request.Path,
+                _traceContext.TraceId
+            );
+
+            var result = await _getOAuthProviderUseCase.GetUserOAuthProviders(
+                userId
+            );
+
+            return Ok(new GetUserOAuthProvidersResponse(result));
+        }
+
+        [HttpGet]
+        [Route("{userId}/providers/{providerId}")]
+        public async Task<ActionResult<BaseOAuthProviderResponse>> GetOAuthProviderById(
+            Guid userId,
+            Guid providerId
+        )
+        {
+            _logger.LogDebug(
+                "Executing GetOAuthProviderById request Path: {UrlPath}, TraceId {TraceId}",
+                HttpContext.Request.Path,
+                _traceContext.TraceId
+            );
+
+            var result = await _getOAuthProviderUseCase.GetOAuthProvider(
+                userId,
+                providerId
+            );
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result.FromOAuthProviderResult());
         }
     }
 }

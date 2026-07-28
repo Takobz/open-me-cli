@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OpenME.WEB.API.Models.Response
 {
-    public class CreateOAuthProviderResponse
+    public class BaseOAuthProviderResponse
     {
-        public CreateOAuthProviderResponse(
+        public BaseOAuthProviderResponse(
             Guid id,
             string name
         )

@@ -17,11 +17,21 @@ namespace OpenME.WEB.API.Models
             );
         }
 
-        public static CreateOAuthProviderResponse FromOAuthProviderResult(
+        public static BaseOAuthProviderResponse FromOAuthProviderResult(
             this CreateOAuthProviderResult result
         )
         {
-            return new CreateOAuthProviderResponse(
+            return new BaseOAuthProviderResponse(
+                result.Id,
+                result.Name
+            );
+        }
+
+        public static BaseOAuthProviderResponse FromOAuthProviderResult(
+            this GetOAuthProviderResult result
+        )
+        {
+            return new BaseOAuthProviderResponse(
                 result.Id,
                 result.Name
             );
