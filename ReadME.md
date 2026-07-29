@@ -60,7 +60,15 @@ dotnet run
 
 ```
 
+## Usage Of CLI
+
+To see a list of supported commands see:
+
+- [Avaliable Commands and Usage](./docs/use-cases/avaliable-command-and-usage.md)
+
 ## Documetation
 
 - [Use Cases](./docs/use-cases/use-cases-list.md)
 - [Code Structure Design](./docs/architecture/ports-and-adapter.md)
+- [CLI Project Structure](./docs/architecture/cli-structure.md)
+- [Mapping Strategies used in WEB Project](./docs/design-decisions/mapping-strategy.md)
