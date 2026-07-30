@@ -14,3 +14,16 @@ type CreateUserResponse struct {
 type GetAllUsersResponse struct {
 	Users []CreateUserResponse `json:"users"`
 }
+
+type CreateOAuthProviderRequest struct {
+	OAuthProviderName string `json:"oAuthProviderName"`
+}
+
+type CreateOAuthProviderResponse struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type GetOAuthProvidersResponse struct {
+	OAuthProviders []CreateOAuthProviderResponse `json:"oAuthProviders"`
+}
