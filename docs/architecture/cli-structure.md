@@ -4,6 +4,7 @@ This document shows how the CLI project has been structured and responsibilities
 
 ## Folder Structure
 
+```txt
 cli
  | --> cmd
         | --> [Command Handlers Go files]
@@ -12,6 +13,7 @@ cli
         | --> interfaces
         | --> models
  --> main.go
+```
 
 ## What Each Directory Does
 
@@ -33,4 +35,14 @@ This is the main entry point with `package main`. It is where the command line t
 
 ## How A Command Is Handled
 
-Details here...
+The Image below shows how a command gets handled by the cli:  
+![cli-handle-cmd](./assets/cli-handle-cmd.png)  
+
+### Image Explained
+
+- The main.go cli app recieves a command like `cmd [..args]`
+- The main.go will transform this to a `CmdHandlerContext` struct.
+- The `CmdHandlerContext` exposes the `HandleCommand()` function that main.go will call.
+- The `HandleCommand()` will select the correct handler by using `cmd` property of the `CmdHandlerContext` struct.
+- All known handlers expose a method that takes in an array of args and returns `CmdHandlerResult` struct.
+- The `CmdHandlerResult` has a `ResultText` property which is what will get presented on the cli std output.

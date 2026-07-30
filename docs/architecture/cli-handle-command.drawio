@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="1S0Y94oRNIJT0A61IIai">
+    <mxGraphModel dx="1603" dy="886" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YbSEL84HTyIc4oPnAfya-10" edge="1" parent="1" source="YbSEL84HTyIc4oPnAfya-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="YbSEL84HTyIc4oPnAfya-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="cli command + args&lt;br&gt;(main.go)" vertex="1">
+          <mxGeometry height="80" width="200" x="320" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-8" edge="1" parent="1" source="YbSEL84HTyIc4oPnAfya-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;" target="YbSEL84HTyIc4oPnAfya-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Main Handler&lt;br&gt;(cmd/main_handler.go)" vertex="1">
+          <mxGeometry height="80" width="200" x="320" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-13" edge="1" parent="1" source="YbSEL84HTyIc4oPnAfya-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="YbSEL84HTyIc4oPnAfya-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Specific Handler and pass args&lt;br&gt;(cmd/*_handler.go files)" vertex="1">
+          <mxGeometry height="80" width="200" x="320" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-11" edge="1" parent="1" source="YbSEL84HTyIc4oPnAfya-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="YbSEL84HTyIc4oPnAfya-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="CmdContext&lt;br&gt;(cmd name + arg array)" vertex="1">
+          <mxGeometry height="60" width="140" x="350" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="YbSEL84HTyIc4oPnAfya-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="OpenME Rest API&lt;br&gt;(pkg/api/open_me_api.go)" vertex="1">
+          <mxGeometry height="80" width="200" x="320" y="660" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
