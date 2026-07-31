@@ -1,5 +1,19 @@
 package models
 
+import (
+	"fmt"
+	"strings"
+)
+
+type APIErrorResponse struct {
+	StatusCode    int      `json:"statusCode"`
+	ErrorMessages []string `json:"errorMessages"`
+}
+
+func (e *APIErrorResponse) Error() string {
+	return fmt.Sprintf("api error (status %d): %s", e.StatusCode, strings.Join(e.ErrorMessages, ", "))
+}
+
 type CreateUserRequest struct {
 	DisplayName string `json:"displayName"`
 	Email       string `json:"email"`
