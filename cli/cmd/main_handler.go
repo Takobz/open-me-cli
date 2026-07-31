@@ -49,16 +49,22 @@ func NewCommandContext(
 
 func knownCommand() map[string]string {
 	return map[string]string{
-		"print":         "print something on the screen",
-		"create-user":   "creates user in the open me cli",
-		"get-all-users": "gets all users that exist in open me app",
+		"print":                 "print something on the screen",
+		"create-user":           "creates user in the open me cli",
+		"get-all-users":         "gets all users that exist in open me app",
+		"create-oauth-provider": "creates an oauth provider for a user",
+		"get-oauth-providers":   "gets all oauth providers for a user",
+		"get-oauth-provider":    "gets an oauth provider by id for a user",
 	}
 }
 
 func commandHandlers() map[string](func(arguments []string) *CmdHandlerResult) {
 	return map[string](func(arguments []string) *CmdHandlerResult){
-		"print":         Print,
-		"create-user":   CreateUserCommandHadler().CreateUser,
-		"get-all-users": CreateAllUsersHandler().GetAllUsers,
+		"print":                 Print,
+		"create-user":           CreateUserCommandHadler().CreateUser,
+		"get-all-users":         CreateAllUsersHandler().GetAllUsers,
+		"create-oauth-provider": CreateOAuthProviderCommandHandler().CreateOAuthProvider,
+		"get-oauth-providers":   CreateGetOAuthProvidersHandler().GetOAuthProviders,
+		"get-oauth-provider":    CreateGetOAuthProviderHandler().GetOAuthProvider,
 	}
 }
