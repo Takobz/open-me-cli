@@ -53,6 +53,6 @@ func (handler *GetOAuthProviderHandler) GetOAuthProvider(arguments []string) *Cm
 
 func CreateGetOAuthProviderHandler() *GetOAuthProviderHandler {
 	return &GetOAuthProviderHandler{
-		openMeApi: &api.OpenMeApiImpl{},
+		openMeApi: api.NewOpenMeApi(),
 	}
 }

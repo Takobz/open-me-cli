@@ -54,7 +54,7 @@ func (handler *CreateOAuthProviderHandler) CreateOAuthProvider(arguments []strin
 
 func CreateOAuthProviderCommandHandler() *CreateOAuthProviderHandler {
 	return &CreateOAuthProviderHandler{
-		openMeApi: &api.OpenMeApiImpl{},
+		openMeApi: api.NewOpenMeApi(),
 	}
 }
 

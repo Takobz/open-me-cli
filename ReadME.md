@@ -60,6 +60,18 @@ dotnet run
 
 ```
 
+## Configuration
+
+The CLI targets the Open ME API at `http://localhost:5151` by default. To point it at a different instance (e.g. a deployed environment), set the `OPEN_ME_API_URL` environment variable:
+
+```bash
+# all commands in this shell will use the deployed instance
+export OPEN_ME_API_URL=https://my-deployed-instance.com
+
+# or set it for a single command
+OPEN_ME_API_URL=https://my-deployed-instance.com ./open-me-cli get-all-users
+```
+
 ## Usage Of CLI
 
 To see a list of supported commands see:
