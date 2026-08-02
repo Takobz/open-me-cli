@@ -29,6 +29,6 @@ func (handler *GetAllUsersHandler) GetAllUsers(arguments []string) *CmdHandlerRe
 
 func CreateAllUsersHandler() *GetAllUsersHandler {
 	return &GetAllUsersHandler{
-		openMeApi: &api.OpenMeApiImpl{},
+		openMeApi: api.NewOpenMeApi(),
 	}
 }

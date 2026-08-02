@@ -6,15 +6,35 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 
 	"github.com/takobz/open-me-cli/cli/pkg/models"
 )
 
+const defaultBaseURL = "http://localhost:5151"
+
 type OpenMeApiImpl struct {
+	baseURL string
+}
+
+/*
+* Creates an OpenMeApiImpl that targets the URL in the OPEN_ME_API_URL
+* environment variable, falling back to http://localhost:5151 when unset.
+ */
+func NewOpenMeApi() *OpenMeApiImpl {
+	baseURL := os.Getenv("OPEN_ME_API_URL")
+	if baseURL == "" {
+		baseURL = defaultBaseURL
+	}
+
+	return &OpenMeApiImpl{
+		baseURL: strings.TrimSuffix(baseURL, "/"),
+	}
 }
 
 func (api *OpenMeApiImpl) CreateUser(user models.CreateUserRequest) (*models.CreateUserResponse, error) {
-	res := sendHttpRequest("POST", "http://localhost:5151/user", user)
+	res := sendHttpRequest("POST", api.baseURL+"/user", user)
 
 	var createdUser models.CreateUserResponse
 	if err := parseResponseBody(res, &createdUser, http.StatusOK); err != nil {
@@ -25,7 +45,7 @@ func (api *OpenMeApiImpl) CreateUser(user models.CreateUserRequest) (*models.Cre
 }
 
 func (api *OpenMeApiImpl) GetAllUsers() (*models.GetAllUsersResponse, error) {
-	res := sendHttpRequest("GET", "http://localhost:5151/user", nil)
+	res := sendHttpRequest("GET", api.baseURL+"/user", nil)
 
 	var users models.GetAllUsersResponse
 	if err := parseResponseBody(res, &users, http.StatusOK); err != nil {
@@ -39,7 +59,7 @@ func (api *OpenMeApiImpl) CreateOAuthProvider(
 	userId string,
 	provider models.CreateOAuthProviderRequest,
 ) (*models.CreateOAuthProviderResponse, error) {
-	res := sendHttpRequest("POST", "http://localhost:5151/user/"+userId+"/providers", provider)
+	res := sendHttpRequest("POST", api.baseURL+"/user/"+userId+"/providers", provider)
 
 	var createdProvider models.CreateOAuthProviderResponse
 	if err := parseResponseBody(res, &createdProvider, http.StatusOK, http.StatusCreated); err != nil {
@@ -50,7 +70,7 @@ func (api *OpenMeApiImpl) CreateOAuthProvider(
 }
 
 func (api *OpenMeApiImpl) GetOAuthProviders(userId string) (*models.GetOAuthProvidersResponse, error) {
-	res := sendHttpRequest("GET", "http://localhost:5151/user/"+userId+"/providers", nil)
+	res := sendHttpRequest("GET", api.baseURL+"/user/"+userId+"/providers", nil)
 
 	var providers models.GetOAuthProvidersResponse
 	if err := parseResponseBody(res, &providers, http.StatusOK); err != nil {
@@ -64,7 +84,7 @@ func (api *OpenMeApiImpl) GetOAuthProvider(
 	userId string,
 	providerId string,
 ) (*models.CreateOAuthProviderResponse, error) {
-	res := sendHttpRequest("GET", "http://localhost:5151/user/"+userId+"/providers/"+providerId, nil)
+	res := sendHttpRequest("GET", api.baseURL+"/user/"+userId+"/providers/"+providerId, nil)
 
 	var provider models.CreateOAuthProviderResponse
 	if err := parseResponseBody(res, &provider, http.StatusOK); err != nil {

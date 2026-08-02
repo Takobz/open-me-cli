@@ -54,7 +54,7 @@ func (handler *CreateUserHandler) CreateUser(arguments []string) *CmdHandlerResu
 
 func CreateUserCommandHadler() *CreateUserHandler {
 	return &CreateUserHandler{
-		openMeApi: &api.OpenMeApiImpl{},
+		openMeApi: api.NewOpenMeApi(),
 	}
 }
 
