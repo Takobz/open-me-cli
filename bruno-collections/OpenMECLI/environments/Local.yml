@@ -2,3 +2,7 @@ name: Local
 variables:
   - name: ApiBaseUrl
     value: http://localhost:5151
+  - name: TEMP_userName
+    value: bruno-user-15cd84ea-2de1-4ce5-bd6a-28716e4a81ba
+  - name: TEMP_trace_id
+    value: b7d1e780-695d-4c91-ba14-846dc98cb90a
